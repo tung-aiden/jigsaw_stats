@@ -3,13 +3,13 @@ import { NextResponse } from "next/server";
 
 export async function GET(
   request: Request,
-  { params }: { params: { puzzleId: string } }
+  { params }: { params: Promise<{ puzzleId: string }> }
 ) {
   try {
-    const { puzzleId } = params;
-    const user = await fetchSinglePuzzle(puzzleId);
-    if (user) {
-      return NextResponse.json(user);
+    const puzzleId = (await params).puzzleId;
+    const puzzle = await fetchSinglePuzzle(puzzleId);
+    if (puzzle) {
+      return NextResponse.json(puzzle);
     } else {
       return NextResponse.json({ error: "Puzzle not found" }, { status: 404 });
     }
