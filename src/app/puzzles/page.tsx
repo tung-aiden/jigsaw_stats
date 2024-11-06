@@ -1,8 +1,10 @@
 "use client";
 import { useEffect, useState } from "react";
+import Link from "next/link";
+import { User } from "@/types";
 
-export default function PuzzlesPage() {
-  const [puzzles, setPuzzles] = useState(null);
+export default function UsersPage() {
+  const [puzzles, setPuzzles] = useState<User[]>([]);
 
   useEffect(() => {
     fetch("/api/puzzles")
@@ -15,7 +17,13 @@ export default function PuzzlesPage() {
     <div>
       <h1>Puzzles</h1>
       {puzzles ? (
-        <pre>{JSON.stringify(puzzles, null, 2)}</pre>
+        <ul>
+          {puzzles.map((puzzle) => (
+            <li key={puzzle.id}>
+              <Link href={`/puzzles/${puzzle.id}`}>{puzzle.id}</Link>
+            </li>
+          ))}
+        </ul>
       ) : (
         <p>Loading...</p>
       )}
