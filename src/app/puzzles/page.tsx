@@ -20,28 +20,30 @@ export default function UsersPage() {
       <p className={styles.note}>
         Click on a puzzle ID to see more information.
       </p>
-      {puzzles ? (
-        <table className={styles.table}>
-          <thead>
-            <tr className={styles.headerRow}>
-              <th className={styles.headerCell}>Puzzle ID</th>
-            </tr>
-          </thead>
-          <tbody>
-            {puzzles.map((puzzle) => (
-              <tr key={puzzle.id} className={styles.row}>
-                <td className={styles.cell}>
-                  <Link href={`/puzzles/${puzzle.id}`} className={styles.link}>
-                    {puzzle.id}
-                  </Link>
-                </td>
+      <div className={styles.detailsBox}>
+        {puzzles ? (
+          <table className={styles.table}>
+            <thead>
+              <tr className={styles.headerRow}>
+                <th className={styles.headerCell}>Puzzle ID</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      ) : (
-        <p>Loading...</p>
-      )}
+            </thead>
+            <tbody>
+              {puzzles.map((puzzle) => (
+                <tr key={puzzle.id} className={styles.row}>
+                  <td className={styles.cell}>
+                    <Link href={`/puzzles/${puzzle.id}`} className={styles.link}>
+                      {puzzle.id}
+                    </Link>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        ) : (
+          <p>Loading...</p>
+        )}
+      </div>
     </div>
   )
 }
